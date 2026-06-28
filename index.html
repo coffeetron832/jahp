@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>jahp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #222;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #F5F5F7; 
+            padding-bottom: 60px; 
+        }
+
+        #titulo-header {
+            font-family: 'Archivo', sans-serif;
+            font-size: 4.5rem;
+            margin: 30px 0 20px 0;
+            width: 100%;
+            max-width: 770px;
+        }
+
+        .wrapper {
+            display: flex;
+            width: 100%;
+            max-width: 770px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            align-items: stretch; 
+        }
+
+        aside {
+            width: 120px;
+            padding: 20px 10px;
+            background-color: #eee;
+            flex-shrink: 0;
+            border-right: 1px solid #ccc;
+        }
+
+        main {
+            padding: 20px;
+            flex-grow: 1;
+            background: #fff;
+            min-height: 520px; 
+            box-sizing: border-box;
+        }
+
+        nav label {
+            display: block;
+            margin-bottom: 12px;
+            color: #00e;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        nav label:hover {
+            text-decoration: underline;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        #tab-inicio:checked ~ .wrapper main #inicio,
+        #tab-sobre-mi:checked ~ .wrapper main #sobre-mi,
+        #tab-proyectos:checked ~ .wrapper main #proyectos,
+        #tab-contacto:checked ~ .wrapper main #contacto {
+            display: block;
+        }
+
+        h1, h2 {
+            margin-top: 0; 
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+            font-size: 1.3em;
+        }
+
+    .img-foto {
+        width: 150px; 
+        margin: 0 15px 10px 0;
+        float: right; 
+        border: 1px solid #ccc;
+        padding: 4px;
+        background: #fff;
+    }
+
+    .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+footer {
+        text-align: center;
+        font-size: 0.75rem;
+        color: #777;
+        padding: 20px;
+        margin-top: 20px;
+        border-top: 1px solid #ccc;
+        width: 100%;
+        max-width: 600px;
+    }
+
+.red-text {
+            color: #d00;
+            font-weight: bold;
+        }
+        .green-text {
+            color: #2e7d32;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <input type="radio" name="portfolio-tabs" id="tab-inicio" checked>
+    <input type="radio" name="portfolio-tabs" id="tab-sobre-mi">
+    <input type="radio" name="portfolio-tabs" id="tab-proyectos">
+    <input type="radio" name="portfolio-tabs" id="tab-contacto">
+
+    <div id="titulo-header">jahp</div>
+
+    <div class="wrapper">
+        <aside>
+            <nav>
+                <label for="tab-inicio">Inicio</label>
+                <label for="tab-sobre-mi">Sobre mí</label>
+                <label for="tab-proyectos">Proyectos</label>
+                <label for="tab-contacto">Contacto</label>
+            </nav>
+        </aside>
+
+        <main>
+            <section id="inicio" class="tab-content">
+                <h1>Bienvenido</h1>
+<img src="tu-imagen.jpg" alt="imagen" class="img-foto">
+                <p>Soy <strong>jahp</strong>. Soy un programador junior entusiasta de la IA (vibecoder), el software libre y la privacidad. En este portafolio encontrarás mi camino, mis proyectos y mi visión sobre la creación de software con sentido humano. Me adentré en el mundo web hace un año y medio apoyado por asistentes de IA, enfocándome siempre en la experiencia de usuario y la resolución de problemas reales.</p>
+            </section>
+
+            <section id="sobre-mi" class="tab-content">
+                <h2>Sobre mí</h2>
+                <p>Cuento con 1.5 años de experiencia, priorizando la eficiencia y la ética. Desapruebo el envío de datos de usuario y soy un firme defensor y promotor del software libre.</p>
+            </section>
+
+            <section id="proyectos" class="tab-content">
+                <h2>Proyectos</h2>
+                <li><b>2025-05-07 — Momento:</b> Red social efímera donde las publicaciones duraban 24 horas. Fue un proyecto fallido y actualmente es 'lost media', pero me enseñó mucho sobre el proceso de creación y cierre de productos. Estado: <span class="red-text">Inactivo, inexistente.</span></li>
+            
+            <li><b>2025-07-13 — Dullchat (originalmente <i>sollo</i>):</b> Sala de chats efímera y segura para compartir con amigos. Al igual que el anterior proyecto no tuvo mucha relevancia, así que lo abandoné. Estado: <span class="red-text">Inactivo, inexistente.</span></li>
+            
+            <li><b>2026-04-13 — Reuuz:</b> Página para impulsar la economía circular en Colombia, mediante las donaciones de objetos de segunda mano para personas que realmente lo necesiten, asegurando una segunda vida para el objeto y no su desecho temprano. Estado: <span class="red-text">Inactivo temporalmente.</span></li>
+            
+            <li><b>2026-05 — unzipp:</b> Herramienta web para la visualización de archivos comprimidos. Tuve un feedback o retroalimentación rotundamente negativa, por lo cual no seguí el proyecto y lo abandoné. Estado: <span class="red-text">Inactivo.</span> <a href="https://www.reddit.com/r/foss/comments/1taqf61/unzipp_a_local_compressed_file_viewer_open_source/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button" target="_blank">Lo que fue unzipp</a>.</li>
+            
+            <li><b>2026-05-23 — mascii (Music ASCII Player):</b> Reproductor de música con enfoque ascii para uso en la terminal. Estado: <span class="green-text">Activo.</span> <a href="https://github.com/coffeetron832/mascii" target="_blank">Repositorio oficial en GitHub</a>.</li>
+            
+            <li><b>2026-06-13 — M4tch3r:</b> Juego de puzzle para jugar con amigos replicando patrones geométricos. Estado: <span class="green-text">Activo.</span> <a href="https://gamem4t.pages.dev/" target="_blank">Página oficial del juego</a>.</li>
+        </ul>
+            </section>
+
+            <section id="contacto" class="tab-content">
+                <h2>Contacto rápido</h2>
+        <ul>
+            <li><a href="mailto:tu@email.com">Email</a></li>
+            <li><a href="https://github.com/coffeetron832" target="_blank">GitHub</a></li>
+            <li><a href="https://www.instagram.com/ponton.0/" target="_blank">Instagram</a></li>
+        </ul>
+<img src="tu-imagen.jpg" alt="imagen" class="img-foto">
+            </section>
+        </main>
+    </div>
+<footer>
+    <p>jahp &copy; 2026 | ultima actualización: junio 2026.</p>
+</footer>
+
+</body>
+</html>
