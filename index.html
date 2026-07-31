@@ -117,16 +117,36 @@ footer {
         .green-text {
     color: #2e7d32;
     font-weight: bold;
+    position: relative;
     display: inline-block;
-    animation: pulse-scale 2.5s infinite ease-in-out;
 }
 
-@keyframes pulse-scale {
-    0%, 100% {
-        transform: scale(1);
+.green-text::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; /* Distancia respecto al texto */
+    left: 0;
+    height: 2px; /* Grosor de la línea */
+    background-color: #2e7d32; /* Color del subrayado */
+    animation: underlineLoop 3s infinite ease-in-out;
+}
+
+@keyframes underlineLoop {
+    0% {
+        width: 0%;
+        left: 0;
     }
-    50% {
-        transform: scale(1.06);
+    30% {
+        width: 100%;
+        left: 0;
+    }
+    60% {
+        width: 0%;
+        left: 100%;
+    }
+    100% {
+        width: 0%;
+        left: 100%;
     }
 }
 
