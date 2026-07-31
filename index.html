@@ -159,16 +159,32 @@ footer {
             </section>
 
             <section id="proyectos" class="tab-content">
-                <h2>Proyectos</h2>
-                <img src="personajepensando.svg" alt="imagen" class="img-fott">
-                
-            <li><b>2026-05-23 — mascii (Music ASCII Player):</b> Reproductor de música con enfoque ascii para uso en la terminal. Estado: <span class="green-text">Activo.</span> <a href="https://github.com/coffeetron832/mascii" target="_blank">Repositorio oficial en GitHub</a>.</li>
-            
+    <h2>Proyectos</h2>
+    
+    <div class="carousel-container">
+        <!-- Flecha izquierda -->
+        <button class="nav-btn prev-btn" onclick="changeProject(-1)" aria-label="Proyecto anterior">&#10094;</button>
 
-            <li><b>2026-06-22 — Giraffile:</b> Herramienta P2P para transferir archivos mediante links. Estado: <span class="green-text">Activo.</span> <a href="https://giraffile.pages.dev/" target="_blank">Página oficial de Giraffile</a>.</li>
+        <!-- Proyecto 1: mascii -->
+        <div class="project-card active">
+            <img src="mascii-preview.png" alt="mascii" class="project-img">
+            <div class="project-desc">
+                <b>2026-05-23 — mascii (Music ASCII Player):</b> Reproductor de música con enfoque ascii para uso en la terminal. Estado: <span class="green-text">Activo.</span> <a href="https://github.com/coffeetron832/mascii" target="_blank">Repositorio oficial en GitHub</a>.
+            </div>
+        </div>
 
-        </ul>
-            </section>
+        <!-- Proyecto 2: Giraffile -->
+        <div class="project-card">
+            <img src="giraffile-preview.png" alt="Giraffile" class="project-img">
+            <div class="project-desc">
+                <b>2026-06-22 — Giraffile:</b> Herramienta P2P para transferir archivos mediante links. Estado: <span class="green-text">Activo.</span> <a href="https://giraffile.pages.dev/" target="_blank">Página oficial de Giraffile</a>.
+            </div>
+        </div>
+
+        <!-- Flecha derecha -->
+        <button class="nav-btn next-btn" onclick="changeProject(1)" aria-label="Siguiente proyecto">&#10095;</button>
+    </div>
+</section>
 
             <section id="contacto" class="tab-content">
                 <h2>Contacto rápido</h2>
