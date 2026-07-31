@@ -115,9 +115,22 @@ footer {
     }
 
         .green-text {
-            color: #2e7d32;
-            font-weight: bold;
-        }
+    color: #2e7d32;
+    font-weight: bold;
+    display: inline-block;
+    animation: pulse-glow 2s infinite ease-in-out;
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 2px rgba(46, 125, 50, 0.2);
+    }
+    50% {
+        opacity: 0.55;
+        text-shadow: 0 0 8px rgba(46, 125, 50, 0.8);
+    }
+}
 
         .carousel-container {
     position: relative;
