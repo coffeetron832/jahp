@@ -114,14 +114,79 @@ footer {
         max-width: 600px;
     }
 
-.red-text {
-            color: #d00;
-            font-weight: bold;
-        }
         .green-text {
             color: #2e7d32;
             font-weight: bold;
         }
+
+        .carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 650px;
+    margin: 20px auto 0 auto;
+}
+
+.project-card {
+    display: none; /* Se ocultan por defecto */
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0 45px; /* Espacio para no solapar con las flechas */
+    box-sizing: border-box;
+}
+
+.project-card.active {
+    display: flex; /* Solo se muestra la tarjeta activa */
+}
+
+.project-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 250px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.project-desc {
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: left;
+    width: 100%;
+}
+
+.green-text {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.nav-btn {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    user-select: none;
+    transition: color 0.2s ease;
+}
+
+.nav-btn:hover {
+    color: #64b5f6;
+}
+
+.prev-btn {
+    left: 0;
+}
+
+.next-btn {
+    right: 0;
+}
     </style>
 </head>
 <body>
