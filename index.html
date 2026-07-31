@@ -266,5 +266,16 @@ footer {
     <p>jahp &copy; 2026 | última actualización: julio 2026.</p>
 </footer>
 
+    <script>
+    let currentProject = 0;
+    const projects = document.querySelectorAll('.project-card');
+
+    function changeProject(direction) {
+        projects[currentProject].classList.remove('active');
+        currentProject = (currentProject + direction + projects.length) % projects.length;
+        projects[currentProject].classList.add('active');
+    }
+</script>
+
 </body>
 </html>
