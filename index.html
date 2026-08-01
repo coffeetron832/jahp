@@ -42,12 +42,13 @@
         }
 
         main {
-            padding: 20px;
-            flex-grow: 1;
-            background: #fff;
-            min-height: 520px; 
-            box-sizing: border-box;
-        }
+    padding: 20px 60px 20px 20px; /* Se añade padding a la derecha para dar espacio al título vertical */
+    flex-grow: 1;
+    background: #fff;
+    min-height: 520px; 
+    box-sizing: border-box;
+    position: relative; /* Para sostener el posicionamiento de los h2 */
+}
 
         nav label {
             display: block;
@@ -68,6 +69,23 @@
         .tab-content {
             display: none;
         }
+
+        .tab-content h2 {
+    position: absolute;
+    right: -40px; /* Ajusta la distancia respecto al borde derecho */
+    top: 50%;
+    transform: translateY(-50%);
+    
+    /* Propiedad clave para orientar el texto verticalmente */
+    writing-mode: vertical-rl;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333; /* Cambiar según el color de contraste deseado */
+    user-select: none;
+}
 
         #tab-inicio:checked ~ .wrapper main #inicio,
         #tab-sobre-mi:checked ~ .wrapper main #sobre-mi,
