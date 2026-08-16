@@ -272,19 +272,23 @@
             }
         }
 
-        .ant {
+        .ant-wrapper {
     position: fixed;
-    bottom: 0; /* O ajusta a la altura donde quieras que camine */
-    left: -50px; /* Inicia fuera de la pantalla */
-    width: 30px; /* Ajusta este valor según el tamaño de tu PNG */
-    height: 30px; 
+    bottom: 0;
+    left: -50px;
+    z-index: 999;
+    pointer-events: none;
+    animation: walkAcross 25s linear infinite;
+}
+
+.ant {
+    width: 30px;
+    height: 30px;
     background-image: url('hormiga.png');
     background-size: contain;
     background-repeat: no-repeat;
-    z-index: 999;
-    pointer-events: none;
-    transform: rotate(-90deg);
-    animation: walkAcross 25s linear infinite;
+    /* Rotamos solo el hijo, así la animación de movimiento no se toca */
+    transform: rotate(-90deg); 
 }
 
 @keyframes walkAcross {
@@ -376,7 +380,9 @@
                 <p>jahp &copy; 2026 | última actualización: agosto 2026.</p>
             </footer>
         </div>
-        <div class="ant"></div>
+        <div class="ant-wrapper">
+    <div class="ant"></div>
+</div>
     </div>
 
     <script>
