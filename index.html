@@ -274,21 +274,24 @@
 
         .ant {
     position: fixed;
-    bottom: 10px;
-    left: -20px; /* Inicia fuera de la pantalla */
-    width: 8px;
-    height: 8px;
-    background-color: #333;
-    border-radius: 50% 50% 20% 20%;
+    bottom: 0; /* O ajusta a la altura donde quieras que camine */
+    left: -50px; /* Inicia fuera de la pantalla */
+    width: 30px; /* Ajusta este valor según el tamaño de tu PNG */
+    height: 30px; 
+    background-image: url('hormiga.png');
+    background-size: contain;
+    background-repeat: no-repeat;
     z-index: 999;
-    pointer-events: none; /* No interfiere con clics */
-    animation: walkAcross 20s linear infinite;
-    opacity: 0.6;
+    pointer-events: none;
+    animation: walkAcross 25s linear infinite;
 }
 
 @keyframes walkAcross {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(110vw); }
+    0% { transform: translateX(0) translateY(0); }
+    25% { transform: translateX(25vw) translateY(-5px); }
+    50% { transform: translateX(50vw) translateY(0); }
+    75% { transform: translateX(75vw) translateY(-5px); }
+    100% { transform: translateX(110vw) translateY(0); }
 }
     </style>
 </head>
