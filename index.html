@@ -271,6 +271,25 @@
                 margin-bottom: 15px;
             }
         }
+
+        .ant {
+    position: fixed;
+    bottom: 10px;
+    left: -20px; /* Inicia fuera de la pantalla */
+    width: 8px;
+    height: 8px;
+    background-color: #333;
+    border-radius: 50% 50% 20% 20%;
+    z-index: 999;
+    pointer-events: none; /* No interfiere con clics */
+    animation: walkAcross 20s linear infinite;
+    opacity: 0.6;
+}
+
+@keyframes walkAcross {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(110vw); }
+}
     </style>
 </head>
 <body>
@@ -353,6 +372,7 @@
                 <p>jahp &copy; 2026 | última actualización: agosto 2026.</p>
             </footer>
         </div>
+        <div class="ant"></div>
     </div>
 
     <script>
