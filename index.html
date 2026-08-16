@@ -5,342 +5,399 @@
     <title>jahp</title>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700&display=swap" rel="stylesheet">
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, Helvetica, sans-serif;
             color: #222;
             margin: 0;
+            padding: 0;
+            background-color: #F5F5F7;
+        }
+
+        /* 1. Hero Splash Screen (Pantalla de presentación inicial) */
+        #hero-splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000000;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 1.2s ease-out;
+            pointer-events: none;
+        }
+
+        #hero-splash.fade-out {
+            opacity: 0;
+        }
+
+        .hero-title {
+            font-family: 'Archivo', sans-serif;
+            font-size: 6rem;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        /* 2. Estructura Principal sin recuadros */
+        .page-container {
+            display: flex;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* Columna Izquierda: Personaje Fijo */
+        .character-column {
+            width: 35%;
+            position: sticky;
+            top: 40px;
+            height: calc(100vh - 80px);
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #F5F5F7; 
-            padding-bottom: 60px; 
+            justify-content: center;
         }
 
-        #titulo-header {
+        .character-img {
+            max-width: 280px;
+            width: 100%;
+            height: auto;
+            max-height: 70vh;
+            object-fit: contain;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .character-img.changing {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        /* Columna Derecha: Contenido continuo */
+        .content-column {
+            width: 65%;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .brand-header {
             font-family: 'Archivo', sans-serif;
-            font-size: 4.5rem;
-            margin: 30px 0 20px 0;
-            width: 100%;
-            max-width: 770px;
+            font-size: 3.5rem;
+            margin-bottom: 50px;
         }
 
-        .wrapper {
+        /* Secciones */
+        .section-block {
+            position: relative;
+            margin-bottom: 140px;
+            padding-right: 90px; /* Espacio reservado para los títulos verticales */
+            min-height: 300px;
+        }
+
+        /* Títulos verticales a la derecha */
+        .section-block h2 {
+            position: absolute;
+            right: 0;
+            top: 0;
+            writing-mode: vertical-rl;
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+            font-size: 2.8rem;
+            color: #333333;
+            user-select: none;
+            border: none;
+            padding: 0;
+        }
+
+        .section-block p {
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-top: 10px;
+        }
+
+        /* Carrusel de Proyectos */
+        .carousel-container {
+            position: relative;
             display: flex;
+            align-items: center;
+            justify-content: center;
             width: 100%;
-            max-width: 770px;
-            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+
+        .project-card {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 0 45px;
             box-sizing: border-box;
-            align-items: stretch; 
         }
 
-        aside {
-            width: 120px;
-            padding: 20px 10px;
-            background-color: #eee;
-            flex-shrink: 0;
-            border-right: 1px solid #ccc;
+        .project-card.active {
+            display: flex;
         }
 
-        main {
-    padding: 20px 100px 20px 20px; 
-    flex-grow: 1;
-    background: #ffffff;
-    color: #000000;
-    min-height: 520px; 
-    box-sizing: border-box;
-    position: relative;
-    max-width: 900px;
-    width: 100%;
-    margin: 0 auto;
-}
-        nav label {
-            display: block;
-            margin-bottom: 12px;
-            color: #00e;
+        .project-img {
+            max-width: 100%;
+            height: auto;
+            max-height: 250px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .project-desc {
+            font-size: 1rem;
+            line-height: 1.6;
+            text-align: left;
+            width: 100%;
+        }
+
+        /* Subrayado verde animado en bucle cada 3s */
+        .green-text {
+            color: #2e7d32;
+            font-weight: bold;
+            position: relative;
+            display: inline-block;
+        }
+
+        .green-text::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            height: 2px;
+            background-color: #2e7d32;
+            animation: underlineLoop 3s infinite ease-in-out;
+        }
+
+        @keyframes underlineLoop {
+            0% { width: 0%; left: 0; }
+            30% { width: 100%; left: 0; }
+            60% { width: 0%; left: 100%; }
+            100% { width: 0%; left: 100%; }
+        }
+
+        /* Botones de navegación del carrusel */
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: #222;
+            font-size: 2rem;
             cursor: pointer;
-            font-size: 0.9em;
+            padding: 10px;
+            position: absolute;
+            top: 40%;
+            transform: translateY(-50%);
+            user-select: none;
+            transition: color 0.2s ease;
         }
 
-        nav label:hover {
+        .nav-btn:hover {
+            color: #64b5f6;
+        }
+
+        .prev-btn { left: 0; }
+        .next-btn { right: 0; }
+
+        a {
+            color: #1e88e5;
             text-decoration: underline;
         }
 
-        input[type="radio"] {
-            display: none;
+        a:hover {
+            color: #1565c0;
         }
 
-        .tab-content {
-            display: none;
+        ul.contact-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
-        .tab-content h2 {
-    position: absolute;
-    right: -80px; 
-    top: 0;
-    
-    writing-mode: vertical-rl;
-    white-space: nowrap;
-    
-    margin: 0;
-    font-size: 3rem;
-    color: #333333;
-    user-select: none;
-}
-
-        #tab-inicio:checked ~ .wrapper main #inicio,
-        #tab-sobre-mi:checked ~ .wrapper main #sobre-mi,
-        #tab-proyectos:checked ~ .wrapper main #proyectos,
-        #tab-contacto:checked ~ .wrapper main #contacto {
-            display: block;
+        ul.contact-list li {
+            margin-bottom: 12px;
+            font-size: 1.1rem;
         }
 
-        h1, h2 {
-            margin-top: 0; 
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 5px;
-            font-size: 1.3em;
+        footer {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #777;
+            padding: 40px 0 20px 0;
+            width: 100%;
         }
 
-    .img-foto {
-        width: 150px; 
-        margin: 0 15px 10px 0;
-        float: right; 
-        padding: 4px;
-    }
-
-    .img-fott {
-        width: 80px; 
-        margin: 0 15px 10px 0;
-        float: right; 
-        padding: 4px;
-    }
-        
-    .clearfix::after {
-        content: "";
-        clear: both;
-        display: table;
-    }
-
-footer {
-        text-align: center;
-        font-size: 0.75rem;
-        color: #777;
-        padding: 20px;
-        margin-top: 20px;
-        border-top: 1px solid #ccc;
-        width: 100%;
-        max-width: 600px;
-    }
-
-        .green-text {
-    color: #2e7d32;
-    font-weight: bold;
-    position: relative;
-    display: inline-block;
-}
-
-.green-text::after {
-    content: '';
-    position: absolute;
-    bottom: -2px; /* Distancia respecto al texto */
-    left: 0;
-    height: 2px; /* Grosor de la línea */
-    background-color: #2e7d32; /* Color del subrayado */
-    animation: underlineLoop 3s infinite ease-in-out;
-}
-
-@keyframes underlineLoop {
-    0% {
-        width: 0%;
-        left: 0;
-    }
-    30% {
-        width: 100%;
-        left: 0;
-    }
-    60% {
-        width: 0%;
-        left: 100%;
-    }
-    100% {
-        width: 0%;
-        left: 100%;
-    }
-}
-
-        .carousel-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 650px;
-    margin: 20px auto 0 auto;
-}
-
-.project-card {
-    display: none; /* Se ocultan por defecto */
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding: 0 45px; /* Espacio para no solapar con las flechas */
-    box-sizing: border-box;
-}
-
-.project-card.active {
-    display: flex; /* Solo se muestra la tarjeta activa */
-}
-
-.project-img {
-    max-width: 100%;
-    height: auto;
-    max-height: 250px;
-    object-fit: contain;
-    margin-bottom: 20px;
-    border-radius: 4px;
-}
-
-.project-desc {
-    font-size: 1rem;
-    line-height: 1.6;
-    text-align: left;
-    width: 100%;
-}
-
-.green-text {
-    color: #4CAF50;
-    font-weight: bold;
-}
-
-.nav-btn {
-    background: transparent;
-    border: none;
-    color: #ffffff;
-    font-size: 2rem;
-    cursor: pointer;
-    padding: 10px;
-    position: absolute;
-    top: 40%;
-    transform: translateY(-50%);
-    user-select: none;
-    transition: color 0.2s ease;
-}
-
-.nav-btn:hover {
-    color: #64b5f6;
-}
-
-.prev-btn {
-    left: 0;
-}
-
-.next-btn {
-    right: 0;
-}
+        /* Adaptación móvil */
+        @media (max-width: 768px) {
+            .page-container {
+                flex-direction: column;
+            }
+            .character-column {
+                width: 100%;
+                position: relative;
+                height: 250px;
+                top: 0;
+            }
+            .content-column {
+                width: 100%;
+                padding-left: 0;
+            }
+            .section-block {
+                padding-right: 0;
+            }
+            .section-block h2 {
+                position: relative;
+                writing-mode: horizontal-tb;
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <input type="radio" name="portfolio-tabs" id="tab-inicio" checked>
-    <input type="radio" name="portfolio-tabs" id="tab-sobre-mi">
-    <input type="radio" name="portfolio-tabs" id="tab-proyectos">
-    <input type="radio" name="portfolio-tabs" id="tab-contacto">
+    <!-- Splash Screen Inicial -->
+    <div id="hero-splash">
+        <h1 class="hero-title">jahp</h1>
+    </div>
 
-    <div id="titulo-header">jahp</div>
+    <div class="page-container">
+        <!-- Columna Izquierda: Personaje Fijo -->
+        <div class="character-column">
+            <img id="active-character" src="modelobasepersonaje.svg" alt="Personaje" class="character-img">
+        </div>
 
-    <div class="wrapper">
-        <aside>
-            <nav>
-                <label for="tab-inicio">Inicio</label>
-                <label for="tab-sobre-mi">Sobre mí</label>
-                <label for="tab-proyectos">Proyectos</label>
-                <label for="tab-contacto">Contacto</label>
-                <img src="banner01.gif" alt="Botón 88x31" style="margin-top: 10px;">
-                <img src="banner02.gif" alt="Botón 88x31" style="margin-top: 10px;">
-            </nav>
-        </aside>
+        <!-- Columna Derecha: Contenido con Scroll continuo -->
+        <div class="content-column">
+            <div class="brand-header">jahp</div>
 
-        <main>
-            <section id="inicio" class="tab-content">
+            <!-- Cada sección define qué imagen usar en data-character -->
+            <section id="inicio" class="section-block" data-character="modelobasepersonaje.svg">
                 <h2>Bienvenido</h2>
-<img src="modelobasepersonaje.svg" alt="imagen" class="img-fott">
                 <p>Soy <strong>jahp</strong>. Soy un programador junior entusiasta de la IA (vibecoder), el software libre y la privacidad. En este portafolio encontrarás mi camino, mis proyectos y mi visión sobre la creación de software con sentido humano. Me adentré en el mundo web hace un año y medio apoyado por asistentes de IA, enfocándome siempre en la experiencia de usuario y la resolución de problemas reales.</p>
             </section>
 
-            <section id="sobre-mi" class="tab-content">
+            <section id="sobre-mi" class="section-block" data-character="personajefeliz.svg">
                 <h2>Sobre mí</h2>
                 <p>Cuento con 1.5 años de experiencia, priorizando la eficiencia y la ética. Desapruebo el envío de datos de usuario con fines maliciosos y soy un firme defensor y promotor del software libre.</p>
-                <img src="personajefeliz.svg" alt="imagen" class="img-foto">
             </section>
 
-            <section id="proyectos" class="tab-content">
-    <h2>Proyectos</h2>
-    
-    <div class="carousel-container">
-        <!-- Flecha izquierda -->
-        <button class="nav-btn prev-btn" onclick="changeProject(-1)" aria-label="Proyecto anterior">&#10094;</button>
+            <section id="proyectos" class="section-block" data-character="personajepensando.svg">
+                <h2>Proyectos</h2>
+                <div class="carousel-container">
+                    <button class="nav-btn prev-btn" onclick="changeProject(-1)" aria-label="Proyecto anterior">&#10094;</button>
 
-        <!-- Proyecto 1: mascii -->
-        <div class="project-card active">
-            <img src="mascii-preview.png" alt="mascii" class="project-img">
-            <div class="project-desc">
-                <b>2026-05-23 - mascii (Music ASCII Player):</b> Reproductor de música con enfoque ascii para uso en la terminal. Estado: <span class="green-text">Activo.</span> <a href="https://github.com/coffeetron832/mascii" target="_blank">Repositorio oficial en GitHub</a>.
-            </div>
-        </div>
+                    <!-- Proyecto 1: mascii -->
+                    <div class="project-card active">
+                        <img src="mascii-preview.png" alt="mascii" class="project-img">
+                        <div class="project-desc">
+                            <b>2026-05-23 - mascii (Music ASCII Player):</b> Reproductor de música con enfoque ascii para uso en la terminal. Estado: <span class="green-text">Activo.</span> <a href="https://github.com/coffeetron832/mascii" target="_blank">Repositorio oficial en GitHub</a>.
+                        </div>
+                    </div>
 
-        <!-- Proyecto 2: Giraffile -->
-        <div class="project-card">
-            <img src="giraffile-preview.png" alt="Giraffile" class="project-img">
-            <div class="project-desc">
-                <b>2026-06-22 - Giraffile:</b> Herramienta P2P para transferir archivos mediante links. Estado: <span class="green-text">Activo.</span> <a href="https://giraffile.pages.dev/" target="_blank">Página oficial de Giraffile</a>.
-            </div>
-        </div>
+                    <!-- Proyecto 2: Giraffile -->
+                    <div class="project-card">
+                        <img src="giraffile-preview.png" alt="Giraffile" class="project-img">
+                        <div class="project-desc">
+                            <b>2026-06-22 - Giraffile:</b> Herramienta P2P para transferir archivos mediante links. Estado: <span class="green-text">Activo.</span> <a href="https://giraffile.pages.dev/" target="_blank">Página oficial de Giraffile</a>.
+                        </div>
+                    </div>
 
-        <!-- Proyecto 3: col.archive -->
-        <div class="project-card">
-            <img src="colarchive-preview.png" alt="col.archive" class="project-img">
-            <div class="project-desc">
-                <b>2026-07-11 - col.archive:</b> Repositorio web de preservación de material (multimedia, documentación, libros, videojuegos, proyectos open source, software, web, hardware, iot) desarrollado en Colombia. Estado: <span class="green-text">Activo.</span> <a href="https://www.colarchive.org/" target="_blank">Página oficial de col.archive</a>.
-            </div>
-        </div>
+                    <!-- Proyecto 3: col.archive -->
+                    <div class="project-card">
+                        <img src="colarchive-preview.png" alt="col.archive" class="project-img">
+                        <div class="project-desc">
+                            <b>2026-07-11 - col.archive:</b> Repositorio web de preservación de material (multimedia, documentación, libros, videojuegos, proyectos open source, software, web, hardware, iot) desarrollado en Colombia. Estado: <span class="green-text">Activo.</span> <a href="https://www.colarchive.org/" target="_blank">Página oficial de col.archive</a>.
+                        </div>
+                    </div>
 
-        <!-- Proyecto 4: 24col -->
-        <div class="project-card">
-            <img src="24col-preview.png" alt="24col" class="project-img">
-            <div class="project-desc">
-                <b>2026-07-28 - 24col:</b> Plataforma web que centraliza o reune enlaces estatales y de utilidad para la ciudadanía. Estado: <span class="green-text">Activo.</span> <a href="https://24col.pages.dev/" target="_blank">Página oficial de 24col</a>.
-            </div>
-        </div>
+                    <!-- Proyecto 4: 24col -->
+                    <div class="project-card">
+                        <img src="24col-preview.png" alt="24col" class="project-img">
+                        <div class="project-desc">
+                            <b>2026-07-28 - 24col:</b> Plataforma web que centraliza o reune enlaces estatales y de utilidad para la ciudadanía. Estado: <span class="green-text">Activo.</span> <a href="https://24col.pages.dev/" target="_blank">Página oficial de 24col</a>.
+                        </div>
+                    </div>
 
-        <!-- Flecha derecha -->
-        <button class="nav-btn next-btn" onclick="changeProject(1)" aria-label="Siguiente proyecto">&#10095;</button>
-    </div>
-</section>
+                    <button class="nav-btn next-btn" onclick="changeProject(1)" aria-label="Siguiente proyecto">&#10095;</button>
+                </div>
+            </section>
 
-            <section id="contacto" class="tab-content">
+            <section id="contacto" class="section-block" data-character="personajesenalando.svg">
                 <h2>Contacto rápido</h2>
-        <ul>
-            <img src="personajesenalando.svg" alt="imagen" class="img-foto">
-            <li><a href="mailto:tu@email.com">Email</a></li>
-            <li><a href="https://github.com/coffeetron832" target="_blank">GitHub</a></li>
-            <li><a href="https://www.instagram.com/ponton.0/" target="_blank">Instagram</a></li>
-        </ul>
+                <ul class="contact-list">
+                    <li><a href="mailto:tu@email.com">Email</a></li>
+                    <li><a href="https://github.com/coffeetron832" target="_blank">GitHub</a></li>
+                    <li><a href="https://www.instagram.com/ponton.0/" target="_blank">Instagram</a></li>
+                </ul>
             </section>
-        </main>
+
+            <footer>
+                <p>jahp &copy; 2026 | última actualización: julio 2026.</p>
+            </footer>
+        </div>
     </div>
-<footer>
-    <p>jahp &copy; 2026 | última actualización: julio 2026.</p>
-</footer>
 
     <script>
-    let currentProject = 0;
-    const projects = document.querySelectorAll('.project-card');
+        // 1. Efecto Splash de entrada (desvanecimiento)
+        window.addEventListener('load', () => {
+            const splash = document.getElementById('hero-splash');
+            setTimeout(() => {
+                splash.classList.add('fade-out');
+            }, 800);
+        });
 
-    function changeProject(direction) {
-        projects[currentProject].classList.remove('active');
-        currentProject = (currentProject + direction + projects.length) % projects.length;
-        projects[currentProject].classList.add('active');
-    }
-</script>
+        // 2. Observer para cambiar el personaje según la sección visible al hacer scroll
+        const characterImg = document.getElementById('active-character');
+        const sections = document.querySelectorAll('.section-block');
+        let currentSrc = characterImg.getAttribute('src');
 
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -40% 0px',
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const newCharacter = entry.target.getAttribute('data-character');
+                    if (newCharacter && newCharacter !== currentSrc) {
+                        currentSrc = newCharacter;
+                        characterImg.classList.add('changing');
+                        setTimeout(() => {
+                            characterImg.src = newCharacter;
+                            characterImg.classList.remove('changing');
+                        }, 200);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
+
+        // 3. Lógica del carrusel de proyectos
+        let currentProject = 0;
+        const projects = document.querySelectorAll('.project-card');
+
+        function changeProject(direction) {
+            projects[currentProject].classList.remove('active');
+            currentProject = (currentProject + direction + projects.length) % projects.length;
+            projects[currentProject].classList.add('active');
+        }
+    </script>
 </body>
 </html>
