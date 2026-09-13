@@ -2,440 +2,60 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>jahp</title>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            color: #222;
-            margin: 0;
-            padding: 0;
-            background-color: #F5F5F7;
-        }
-
-        /* 1. Hero Splash Screen (Pantalla de presentación inicial) */
-        #hero-splash {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #000000;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 1;
-            transition: opacity 1.2s ease-out;
-            pointer-events: none;
-        }
-
-        #hero-splash.fade-out {
-            opacity: 0;
-        }
-
-        .hero-title {
-            font-family: 'Archivo', sans-serif;
-            font-size: 6rem;
-            letter-spacing: 2px;
-            margin: 0;
-        }
-
-        /* 2. Estructura Principal sin recuadros */
-        .page-container {
-            display: flex;
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
-
-        /* Columna Izquierda: Personaje Fijo */
-        .character-column {
-            width: 35%;
-            position: sticky;
-            top: 40px;
-            height: calc(100vh - 80px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .character-img {
-            max-width: 280px;
-            width: 100%;
-            height: auto;
-            max-height: 70vh;
-            object-fit: contain;
-            /* Se desactiva la animación en transform para que el giro sea instantáneo mientras está invisible */
-            transition: opacity 0.25s ease-in-out;
-            transform: scale(1) scaleX(1);
-        }
-
-        /* Inversión horizontal para apuntar hacia la derecha */
-        .character-img.flipped {
-            transform: scale(1) scaleX(-1);
-        }
-
-        .character-img.changing {
-            opacity: 0;
-        }
-
-        /* Columna Derecha: Contenido continuo */
-        .content-column {
-            width: 65%;
-            padding-left: 40px;
-            position: relative;
-        }
-
-        .brand-header {
-            font-family: 'Archivo', sans-serif;
-            font-size: 3.5rem;
-            margin-bottom: 50px;
-        }
-
-        /* Secciones */
-        .section-block {
-            position: relative;
-            margin-bottom: 140px;
-            padding-right: 90px; /* Espacio reservado para los títulos verticales */
-            min-height: 300px;
-        }
-
-        /* Títulos verticales a la derecha */
-        .section-block h2 {
-            position: absolute;
-            right: 0;
-            top: 0;
-            writing-mode: vertical-rl;
-            white-space: nowrap;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 0;
-            font-size: 2.8rem;
-            color: #333333;
-            user-select: none;
-            border: none;
-            padding: 0;
-        }
-
-        .section-block p {
-            line-height: 1.8;
-            font-size: 1.05rem;
-            margin-top: 10px;
-        }
-
-        /* Carrusel de Proyectos */
-        .carousel-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .project-card {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            padding: 0 45px;
-            box-sizing: border-box;
-        }
-
-        .project-card.active {
-            display: flex;
-        }
-
-        .project-img {
-            max-width: 100%;
-            height: auto;
-            max-height: 250px;
-            object-fit: contain;
-            margin-bottom: 20px;
-            border-radius: 4px;
-        }
-
-        .project-desc {
-            font-size: 1rem;
+            background-color: #121212;
+            color: #e0e0e0;
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 0 20px;
             line-height: 1.6;
-            text-align: left;
-            width: 100%;
         }
 
-        /* Subrayado verde animado en bucle cada 3s */
-        .green-text {
-            color: #2e7d32;
-            font-weight: bold;
-            position: relative;
-            display: inline-block;
-        }
-
-        .green-text::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            height: 2px;
-            background-color: #2e7d32;
-            animation: underlineLoop 3s infinite ease-in-out;
-        }
-
-        @keyframes underlineLoop {
-            0% { width: 0%; left: 0; }
-            30% { width: 100%; left: 0; }
-            60% { width: 0%; left: 100%; }
-            100% { width: 0%; left: 100%; }
-        }
-
-        /* Botones de navegación del carrusel */
-        .nav-btn {
-            background: transparent;
-            border: none;
-            color: #222;
-            font-size: 2rem;
-            cursor: pointer;
-            padding: 10px;
-            position: absolute;
-            top: 40%;
-            transform: translateY(-50%);
-            user-select: none;
-            transition: color 0.2s ease;
-        }
-
-        .nav-btn:hover {
+        a {
             color: #64b5f6;
         }
 
-        .prev-btn { left: 0; }
-        .next-btn { right: 0; }
-
-        a {
-            color: #1e88e5;
-            text-decoration: underline;
+        a:visited {
+            color: #ba68c8;
         }
 
-        a:hover {
-            color: #1565c0;
+        hr {
+            border: none;
+            border-top: 1px solid #333;
+            margin: 30px 0;
         }
 
-        ul.contact-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+        /* Badge sutil para las fechas */
+        .date-badge {
+            background-color: #242424;
+            color: #a0a0a0;
+            font-size: 0.85em;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid #333;
+            margin-right: 6px;
+            vertical-align: middle;
         }
-
-        ul.contact-list li {
-            margin-bottom: 12px;
-            font-size: 1.1rem;
-        }
-
-        footer {
-            text-align: center;
-            font-size: 0.85rem;
-            color: #777;
-            padding: 40px 0 20px 0;
-            width: 100%;
-        }
-
-        /* Adaptación móvil */
-        @media (max-width: 768px) {
-            .page-container {
-                flex-direction: column;
-            }
-            .character-column {
-                width: 100%;
-                position: relative;
-                height: 250px;
-                top: 0;
-            }
-            .content-column {
-                width: 100%;
-                padding-left: 0;
-            }
-            .section-block {
-                padding-right: 0;
-            }
-            .section-block h2 {
-                position: relative;
-                writing-mode: horizontal-tb;
-                font-size: 1.8rem;
-                margin-bottom: 15px;
-            }
-        }
-
-        .ant-wrapper {
-    position: fixed;
-    bottom: 0;
-    left: -50px;
-    z-index: 999;
-    pointer-events: none;
-    animation: walkAcross 35s linear infinite;
-}
-
-.ant {
-    width: 30px;
-    height: 30px;
-    background-image: url('hormiga.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    transform: rotate(90deg); 
-}
-
-@keyframes walkAcross {
-    0% { transform: translateX(0) translateY(0); }
-    25% { transform: translateX(25vw) translateY(-5px); }
-    50% { transform: translateX(50vw) translateY(0); }
-    75% { transform: translateX(75vw) translateY(-5px); }
-    100% { transform: translateX(110vw) translateY(0); }
-}
     </style>
 </head>
 <body>
 
-    <!-- Splash Screen Inicial -->
-    <div id="hero-splash">
-        <h1 class="hero-title">jahp</h1>
-    </div>
+    <h1>Proyectos</h1>
 
-    <div class="page-container">
-        <!-- Columna Izquierda: Personaje Fijo -->
-        <div class="character-column">
-            <img id="active-character" src="modelobasepersonaje.svg" alt="Personaje" class="character-img">
-        </div>
+    <p>&gt; <b>2026-05-23 - mascii (Music ASCII Player):</b> Reproductor de música con enfoque ascii para uso en la terminal. Estado: Activo. <a href="https://github.com/coffeetron832/mascii" target="_blank">Repositorio oficial en GitHub</a>.</p>
 
-        <!-- Columna Derecha: Contenido con Scroll continuo -->
-        <div class="content-column">
-            <div class="brand-header">jahp</div>
+    <p>&gt; <b>2026-06-22 - Giraffile:</b> Herramienta P2P para transferir archivos mediante links. Estado: Activo. <a href="https://giraffile.pages.dev/" target="_blank">Página oficial de Giraffile</a>.</p>
 
-            <section id="inicio" class="section-block" data-character="modelobasepersonaje.svg">
-                <h2>Bienvenido</h2>
-                <p>Soy <strong>jahp</strong>. Soy un programador junior entusiasta de la IA (vibecoder), el software libre y la privacidad. En este portafolio encontrarás mi camino, mis proyectos y mi visión sobre la creación de software con sentido humano. Me adentré en el mundo web hace un año y medio apoyado por asistentes de IA, enfocándome siempre en la experiencia de usuario y la resolución de problemas reales.</p>
-            </section>
+    <p>&gt; <b>2026-07-28 - 24col:</b> Plataforma web que centraliza o reune enlaces estatales y de utilidad para la ciudadanía. Estado: Activo. <a href="https://24col.pages.dev/" target="_blank">Página oficial de 24col</a>.</p>
 
-            <section id="sobre-mi" class="section-block" data-character="personajefeliz.svg">
-                <h2>Sobre mí</h2>
-                <p>Cuento con 1.5 años de experiencia, priorizando la eficiencia y la ética. Desapruebo el envío de datos de usuario con fines maliciosos y soy un firme defensor y promotor del software libre.</p>
-            </section>
+    <hr>
 
-            <section id="proyectos" class="section-block" data-character="personajepensando.svg">
-                <h2>Proyectos</h2>
-                <div class="carousel-container">
-                    <button class="nav-btn prev-btn" onclick="changeProject(-1)" aria-label="Proyecto anterior">&#10094;</button>
+    <h2>Actualizaciones</h2>
 
-                    <!-- Proyecto 1: mascii -->
-                    <div class="project-card active">
-                        <img src="mascii-preview.png" alt="mascii" class="project-img">
-                        <div class="project-desc">
-                            <b>2026-05-23 - mascii (Music ASCII Player):</b> Reproductor de música con enfoque ascii para uso en la terminal. Estado: <span class="green-text">Activo.</span> <a href="https://github.com/coffeetron832/mascii" target="_blank">Repositorio oficial en GitHub</a>.
-                        </div>
-                    </div>
+    <p>&gt; <span class="date-badge">2026-09-08</span> Lanzamiento del motor de búsqueda 'Triny'.</p>
 
-                    <!-- Proyecto 2: Giraffile -->
-                    <div class="project-card">
-                        <img src="giraffile-preview.png" alt="Giraffile" class="project-img">
-                        <div class="project-desc">
-                            <b>2026-06-22 - Giraffile:</b> Herramienta P2P para transferir archivos mediante links. Estado: <span class="green-text">Activo.</span> <a href="https://giraffile.pages.dev/" target="_blank">Página oficial de Giraffile</a>.
-                        </div>
-                    </div>
-
-                    <!-- Proyecto 3: 24col -->
-                    <div class="project-card">
-                        <img src="24col-preview.png" alt="24col" class="project-img">
-                        <div class="project-desc">
-                            <b>2026-07-28 - 24col:</b> Plataforma web que centraliza o reune enlaces estatales y de utilidad para la ciudadanía. Estado: <span class="green-text">Activo.</span> <a href="https://24col.pages.dev/" target="_blank">Página oficial de 24col</a>.
-                        </div>
-                    </div>
-
-                    <button class="nav-btn next-btn" onclick="changeProject(1)" aria-label="Siguiente proyecto">&#10095;</button>
-                </div>
-            </section>
-
-            <section id="contacto" class="section-block" data-character="personajesenalando.svg" data-flip="true">
-                <h2>Contacto rápido</h2>
-                <ul class="contact-list">
-                    <li><a href="https://github.com/coffeetron832" target="_blank">GitHub</a></li>
-                    <li><a href="https://www.instagram.com/ponton.0/" target="_blank">Instagram</a></li>
-                </ul>
-            </section>
-
-            <footer>
-                <p>jahp &copy; 2026 | última actualización: agosto 2026.</p>
-            </footer>
-        </div>
-        <div class="ant-wrapper">
-    <div class="ant"></div>
-</div>
-    </div>
-
-    <script>
-        // 1. Efecto Splash de entrada (desvanecimiento)
-        window.addEventListener('load', () => {
-            const splash = document.getElementById('hero-splash');
-            setTimeout(() => {
-                splash.classList.add('fade-out');
-            }, 800);
-        });
-
-        // 2. Observer para cambiar el personaje según la sección visible al hacer scroll
-        const characterImg = document.getElementById('active-character');
-        const sections = document.querySelectorAll('.section-block');
-        let currentSrc = characterImg.getAttribute('src');
-
-        const observerOptions = {
-            root: null,
-            rootMargin: '-20% 0px -40% 0px',
-            threshold: 0.2
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const newCharacter = entry.target.getAttribute('data-character');
-                    const shouldFlip = entry.target.getAttribute('data-flip') === 'true';
-
-                    if (newCharacter && newCharacter !== currentSrc) {
-                        currentSrc = newCharacter;
-                        
-                        // Ocultamos la imagen primero mediante CSS transition en opacidad
-                        characterImg.classList.add('changing');
-
-                        setTimeout(() => {
-                            // Cambio de orientación e imagen en el momento exacto donde está completamente invisible
-                            if (shouldFlip) {
-                                characterImg.classList.add('flipped');
-                            } else {
-                                characterImg.classList.remove('flipped');
-                            }
-                            characterImg.src = newCharacter;
-
-                            // Hacemos que reaparezca suavemente ya orientada hacia el lado correcto
-                            characterImg.classList.remove('changing');
-                        }, 250);
-                    }
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach(section => observer.observe(section));
-
-        // 3. Lógica del carrusel de proyectos
-        let currentProject = 0;
-        const projects = document.querySelectorAll('.project-card');
-
-        function changeProject(direction) {
-            projects[currentProject].classList.remove('active');
-            currentProject = (currentProject + direction + projects.length) % projects.length;
-            projects[currentProject].classList.add('active');
-        }
-    </script>
 </body>
 </html>
